@@ -1,0 +1,109 @@
+basePath: /
+definitions:
+  domain.Task:
+    properties:
+      task:
+        type: string
+    type: object
+  types.GetResultHandlerResponse:
+    properties:
+      result:
+        type: string
+    type: object
+  types.GetStatusHandlerResponse:
+    properties:
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server.
+  title: My API
+  version: "1.0"
+paths:
+  /result:
+    get:
+      consumes:
+      - application/json
+      description: Get an Result by its id
+      parameters:
+      - description: Id of the task
+        in: query
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.GetResultHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Task not found
+          schema:
+            type: string
+      summary: Get a Result of the Task
+      tags:
+      - object
+  /status:
+    get:
+      consumes:
+      - application/json
+      description: Get an Status by its id
+      parameters:
+      - description: Id of the task
+        in: query
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.GetStatusHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Task not found
+          schema:
+            type: string
+      summary: Get a Status of the Task
+      tags:
+      - object
+  /task:
+    post:
+      consumes:
+      - application/json
+      description: Create a new task with the specified uuid64
+      parameters:
+      - description: Task data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Task created successfully
+          schema:
+            type: string
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Create a Task
+      tags:
+      - object
+swagger: "2.0"
